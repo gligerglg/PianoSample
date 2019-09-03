@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:piano_sample/model/note.dart';
 import 'package:piano_sample/ui/line_view.dart';
@@ -8,6 +9,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+  AudioCache player = new AudioCache();
+
   List<Note> noteList = initNotes();
   int currentNoteIndex = 0;
   AnimationController animationController;
@@ -20,7 +23,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed && isPlaying) {
         if (noteList[currentNoteIndex].state != NoteState.TAPPED) {
@@ -52,6 +55,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   _onTapNote(Note note) {
+    _playNote(note);
     /* bool areAllPreviousTapped = noteList
         .sublist(0, note.orderNumber)
         .every((n) => n.state == NoteState.TAPPED);*/
@@ -71,6 +75,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       note.state = NoteState.TAPPED;
       ++points;
     });
+  }
+
+  _playNote(Note note){
+    switch(note.line){
+      case 0 : player.play('do.wav'); return;
+      case 1 : player.play('re.wav'); return;
+      case 2 : player.play('mi.wav'); return;
+      case 3 : player.play('fa.wav'); return;
+    }
   }
 
   _drawLine(int lineNumber) {
@@ -138,7 +151,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         fit: StackFit.passthrough,
         children: <Widget>[
           Image.asset(
-            'images/piano_bg.jpg',
+            'assets/piano_bg.jpg',
             fit: BoxFit.cover,
           ),
           Row(
@@ -162,10 +175,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 List<Note> initNotes() {
   return [
     Note(0, 0),
-    Note(1, 1),
-    Note(2, 2),
+    Note(0, 3),
+    Note(0, 2),
+    Note(0, 3),
     Note(3, 1),
-    Note(4, 3),
     Note(5, 0),
     Note(6, 0),
     Note(7, 3),

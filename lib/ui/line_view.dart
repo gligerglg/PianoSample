@@ -10,8 +10,6 @@ class Line extends AnimatedWidget {
 
   Line({this.lineNumber, this.currentNotes, this.animation,this.onTapNote}):super(listenable:animation);
 
-//  const Line(Key key, this.currentNotes, this.lineNumber,Animation<double> animation) : super(key: key,listenable:animation);
-
   @override
   Widget build(BuildContext context) {
     Animation<double> animation = super.listenable;
