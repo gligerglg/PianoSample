@@ -29,10 +29,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             noteList[currentNoteIndex].state = NoteState.MISSED;
           });
 
-          animationController.reverse().then((value){
+          animationController.reverse().then((value) {
             _showFinishDialog();
           });
-
         } else if (currentNoteIndex == noteList.length - 5) {
           //Song Finished
           _showFinishDialog();
@@ -86,27 +85,31 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void _showFinishDialog() {
-    showDialog( //<--Show a dialog
+    showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text("Score: $points"), //<--With number of points
           actions: <Widget>[
-            FlatButton(                 //<-- and restart button
-              onPressed: () => Navigator.of(context).pop(),
+            FlatButton(
+              //<-- and restart button
+              onPressed: () {
+                Navigator.of(context).pop();
+                _restart();
+              },
               child: Text("RESTART"),
             ),
           ],
         );
       },
-    ).then((_)=>_restart);
+    ).then((_) => _restart);
   }
 
   void _restart() {
     setState(() {
       hasStarted = false;
       isPlaying = true;
-      noteList.clear();
       noteList = initNotes();
       points = 0;
       currentNoteIndex = 0;
