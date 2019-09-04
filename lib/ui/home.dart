@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:piano_sample/model/note.dart';
@@ -23,7 +25,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed && isPlaying) {
         if (noteList[currentNoteIndex].state != NoteState.TAPPED) {
@@ -40,7 +42,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           _showFinishDialog();
         } else {
           setState(() {
-            ++currentNoteIndex;
+            currentNoteIndex++;
             animationController.forward(from: 0);
           });
         }
@@ -56,9 +58,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   _onTapNote(Note note) {
     _playNote(note);
-    /* bool areAllPreviousTapped = noteList
+     bool areAllPreviousTapped = noteList
         .sublist(0, note.orderNumber)
-        .every((n) => n.state == NoteState.TAPPED);*/
+        .every((n) => n.state == NoteState.TAPPED);
 
     if (!hasStarted) {
       animationController.forward();
@@ -67,22 +69,70 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       });
     }
 
-    /*if(areAllPreviousTapped) {
-
-    }*/
-
-    setState(() {
-      note.state = NoteState.TAPPED;
-      ++points;
-    });
+    if(areAllPreviousTapped) {
+      setState(() {
+        note.state = NoteState.TAPPED;
+        ++points;
+      });
+    }
   }
 
   _playNote(Note note){
-    switch(note.line){
-      case 0 : player.play('do.wav'); return;
-      case 1 : player.play('re.wav'); return;
-      case 2 : player.play('mi.wav'); return;
-      case 3 : player.play('fa.wav'); return;
+    switch(note.tone){
+      case Tone.C3 : player.play('C3.wav'); return;
+      case Tone.C4 : player.play('C4.wav'); return;
+      case Tone.C5 : player.play('C5.wav'); return;
+      case Tone.C6 : player.play('C6.wav'); return;
+
+      case Tone.D3 : player.play('D3.wav'); return;
+      case Tone.D4 : player.play('D4.wav'); return;
+      case Tone.D5 : player.play('D5.wav'); return;
+      case Tone.D6 : player.play('D6.wav'); return;
+      case Tone.Db3 : player.play('Db3.wav'); return;
+      case Tone.Db4 : player.play('Db4.wav'); return;
+      case Tone.Db5 : player.play('Db5.wav'); return;
+      case Tone.Db6 : player.play('Db6.wav'); return;
+
+      case Tone.E3 : player.play('E3.wav'); return;
+      case Tone.E4 : player.play('E4.wav'); return;
+      case Tone.E5 : player.play('E5.wav'); return;
+      case Tone.E6 : player.play('E6.wav'); return;
+      case Tone.Eb3 : player.play('Eb3.wav'); return;
+      case Tone.Eb4 : player.play('Eb4.wav'); return;
+      case Tone.Eb5 : player.play('Eb5.wav'); return;
+      case Tone.Eb6 : player.play('Eb6.wav'); return;
+
+      case Tone.F3 : player.play('F3.wav'); return;
+      case Tone.F4 : player.play('F4.wav'); return;
+      case Tone.F5 : player.play('F5.wav'); return;
+      case Tone.F6 : player.play('F6.wav'); return;
+
+      case Tone.G3 : player.play('G3.wav'); return;
+      case Tone.G4 : player.play('G4.wav'); return;
+      case Tone.G5 : player.play('G5.wav'); return;
+      case Tone.G6 : player.play('G6.wav'); return;
+      case Tone.Gb3 : player.play('Gb3.wav'); return;
+      case Tone.Gb4 : player.play('Gb4.wav'); return;
+      case Tone.Gb5 : player.play('Gb5.wav'); return;
+      case Tone.Gb6 : player.play('Gb6.wav'); return;
+
+      case Tone.A3 : player.play('A3.wav'); return;
+      case Tone.A4 : player.play('A4.wav'); return;
+      case Tone.A5 : player.play('A5.wav'); return;
+      case Tone.A6 : player.play('A6.wav'); return;
+      case Tone.Ab3 : player.play('Ab3.wav'); return;
+      case Tone.Ab4 : player.play('Ab4.wav'); return;
+      case Tone.Ab5 : player.play('Ab5.wav'); return;
+      case Tone.Ab6 : player.play('Ab6.wav'); return;
+
+      case Tone.B3 : player.play('B3.wav'); return;
+      case Tone.B4 : player.play('B4.wav'); return;
+      case Tone.B5 : player.play('B5.wav'); return;
+      case Tone.B6 : player.play('B6.wav'); return;
+      case Tone.Bb3 : player.play('Bb3.wav'); return;
+      case Tone.Bb4 : player.play('Bb4.wav'); return;
+      case Tone.Bb5 : player.play('Bb5.wav'); return;
+      case Tone.Bb6 : player.play('Bb6.wav'); return;
     }
   }
 
@@ -173,33 +223,32 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 }
 
 List<Note> initNotes() {
+  var random = new Random();
   return [
-    Note(0, 0),
-    Note(0, 3),
-    Note(0, 2),
-    Note(0, 3),
-    Note(3, 1),
-    Note(5, 0),
-    Note(6, 0),
-    Note(7, 3),
-    Note(8, 2),
-    Note(9, 2),
-    Note(10, 1),
-    Note(11, 3),
-    Note(12, 1),
-    Note(13, 0),
-    Note(14, 2),
-    Note(15, 1),
-    Note(16, 2),
-    Note(17, 0),
-    Note(18, 1),
-    Note(19, 3),
-    Note(20, -1),
-    //Add 4 times -1 notes so that song will end after last normal note reaches end
-    Note(21, -1),
-    Note(22, -1),
-    Note(23, -1),
-    Note(24, -1),
+    Note(orderNumber: 0,line: 0,tone: Tone.Eb4,length: 2,offset: 0),
+    Note(orderNumber: 1,line: 1,tone: Tone.Bb4,length: 2,offset: 2),
+    Note(orderNumber: 2,line: 2,tone: Tone.Bb4,length: 2,offset: 4),
+    Note(orderNumber: 3,line: 2,tone: Tone.Gb4,length: 2,offset: 6),
+    Note(orderNumber: 3,line: 1,tone: Tone.F4,length: 2,offset: 8),
+    Note(orderNumber: 4,line: 3,tone: Tone.F4,length: 2,offset: 10),
+    Note(orderNumber: 5,line: 2,tone: Tone.F4,length: 2,offset: 12),
+    Note(orderNumber: 6,line: 1,tone: Tone.F4,length: 1,offset: 14),
+    Note(orderNumber: 6,line: 2,tone: Tone.Gb4,length: 2,offset: 15),
+
+    Note(orderNumber: 6,line: 3,tone: Tone.Eb4,length: 2,offset: 17),
+    Note(orderNumber: 8,line: 1,tone: Tone.Bb4,length: 2,offset: 19),
+    Note(orderNumber: 9,line: 3,tone: Tone.Bb4,length: 2,offset: 21),
+    Note(orderNumber: 9,line: 3,tone: Tone.Gb4,length: 2,offset: 23),
+    Note(orderNumber: 10,line: 2,tone: Tone.F4,length: 2,offset: 25),
+    Note(orderNumber: 10,line: 1,tone: Tone.F4,length: 2,offset: 27),
+    Note(orderNumber: 11,line: 3,tone: Tone.F4,length: 2,offset: 29),
+    Note(orderNumber: 12,line: 1,tone: Tone.F4,length: 1,offset: 31),
+    Note(orderNumber: 13,line: 3,tone: Tone.Gb4,length: 2,offset: 32),
+
+    Note(orderNumber: 14,line: -1,tone: Tone.Gb4,length: 2,offset: 34),
+    Note(orderNumber: 15,line: -1,tone: Tone.Gb4,length: 2,offset: 36),
+    Note(orderNumber: 16,line: -1,tone: Tone.Gb4,length: 2,offset: 38),
+    Note(orderNumber: 17,line: -1,tone: Tone.Gb4,length: 2,offset: 40),
   ];
 }
 

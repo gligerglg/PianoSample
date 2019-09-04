@@ -44,12 +44,54 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/piano_bg.jpg
-   - assets/do.wav
-   - assets/re.wav
-   - assets/mi.wav
-   - assets/fa.wav
-   - assets/so.wav
-   - assets/la.wav
+   - assets/C3.wav
+   - assets/C4.wav
+   - assets/C5.wav
+   - assets/C6.wav
+   - assets/D3.wav
+   - assets/D4.wav
+   - assets/D5.wav
+   - assets/D6.wav
+   - assets/Db3.wav
+   - assets/Db4.wav
+   - assets/Db5.wav
+   - assets/Db6.wav
+   - assets/E3.wav
+   - assets/E4.wav
+   - assets/E5.wav
+   - assets/E6.wav
+   - assets/Eb3.wav
+   - assets/Eb4.wav
+   - assets/Eb5.wav
+   - assets/Eb6.wav
+   - assets/F3.wav
+   - assets/F4.wav
+   - assets/F5.wav
+   - assets/F6.wav
+   - assets/G3.wav
+   - assets/G4.wav
+   - assets/G5.wav
+   - assets/G6.wav
+   - assets/Gb3.wav
+   - assets/Gb4.wav
+   - assets/Gb5.wav
+   - assets/Gb6.wav
+   - assets/A3.wav
+   - assets/A4.wav
+   - assets/A5.wav
+   - assets/A6.wav
+   - assets/Ab3.wav
+   - assets/Ab4.wav
+   - assets/Ab5.wav
+   - assets/Ab6.wav
+   - assets/B3.wav
+   - assets/B4.wav
+   - assets/B5.wav
+   - assets/B6.wav
+   - assets/Bb3.wav
+   - assets/Bb4.wav
+   - assets/Bb5.wav
+   - assets/Bb6.wav
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
