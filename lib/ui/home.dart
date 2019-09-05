@@ -55,7 +55,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   _onTapNote(Note note) {
-    _playNote(note);
+//    _playNote(note);
     /* bool areAllPreviousTapped = noteList
         .sublist(0, note.orderNumber)
         .every((n) => n.state == NoteState.TAPPED);*/
