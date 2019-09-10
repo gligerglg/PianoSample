@@ -8,14 +8,14 @@ class Line extends AnimatedWidget {
   final Animation<double> animation;
   final Function(Note) onTapNote;
 
-  Line({this.lineNumber, this.currentNotes, this.animation,this.onTapNote}):super(listenable:animation);
+  Line({this.lineNumber, this.currentNotes, this.animation, this.onTapNote})
+      : super(listenable: animation);
 
   @override
   Widget build(BuildContext context) {
     Animation<double> animation = super.listenable;
     //Get height
     double height = MediaQuery.of(context).size.height;
-    double tileHeight = height / 4;
 
     //Get only notes for the current line
     List<Note> notes =
@@ -24,6 +24,8 @@ class Line extends AnimatedWidget {
     //Map Notes to widgets
     List<Widget> tiles = notes.map((note) {
       int index = currentNotes.indexOf(note);
+      double tileHeight = (height / 4);
+
       double offset = (3 - index + animation.value) * tileHeight;
 
       return Transform.translate(
@@ -31,7 +33,7 @@ class Line extends AnimatedWidget {
           child: Tile(
             height: tileHeight,
             noteState: note.state,
-            onTap: ()=>onTapNote(note),
+            onTap: () => onTapNote(note),
           ));
     }).toList();
 

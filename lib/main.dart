@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piano_sample/ui/home.dart';
+import 'package:piano_sample/ui/keyboard.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: KeyBoard(),
     );
   }
 }
