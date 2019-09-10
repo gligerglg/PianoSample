@@ -15,6 +15,23 @@ class _KeyBoardState extends State<KeyBoard> {
   double black_height = 70;
   String _pitch = "3";
 
+  List<Color> whiteColors = [
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white
+  ];
+  List<Color> blackColors = [
+    Colors.black26,
+    Colors.black26,
+    Colors.black26,
+    Colors.black26,
+    Colors.black26,
+  ];
+
   @override
   Widget build(BuildContext context) {
     height = (MediaQuery.of(context).size.height / 8);
@@ -27,13 +44,13 @@ class _KeyBoardState extends State<KeyBoard> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                _whiteKey(height, "C"),
-                _whiteKey(height, "D"),
-                _whiteKey(height, "E"),
-                _whiteKey(height, "F"),
-                _whiteKey(height, "G"),
-                _whiteKey(height, "A"),
-                _whiteKey(height, "B"),
+                _whiteKey(height, "C" + _pitch, 0),
+                _whiteKey(height, "D" + _pitch, 1),
+                _whiteKey(height, "E" + _pitch, 2),
+                _whiteKey(height, "F" + _pitch, 3),
+                _whiteKey(height, "G" + _pitch, 4),
+                _whiteKey(height, "A" + _pitch, 5),
+                _whiteKey(height, "B" + _pitch, 6),
                 settings()
               ],
             ),
@@ -43,23 +60,23 @@ class _KeyBoardState extends State<KeyBoard> {
                 SizedBox(
                   height: height - (black_height / 2),
                 ),
-                _blackKey(height, "C#"),
+                _blackKey(height, "C#" + _pitch, 0),
                 SizedBox(
                   height: height - (black_height),
                 ),
-                _blackKey(height, "D#"),
+                _blackKey(height, "D#" + _pitch, 1),
                 SizedBox(
                   height: height * 2 - (black_height),
                 ),
-                _blackKey(height, "F#"),
+                _blackKey(height, "F#" + _pitch, 2),
                 SizedBox(
                   height: height - (black_height),
                 ),
-                _blackKey(height, "G#"),
+                _blackKey(height, "G#" + _pitch, 3),
                 SizedBox(
                   height: height - (black_height),
                 ),
-                _blackKey(height, "A#"),
+                _blackKey(height, "A#" + _pitch, 4),
               ],
             )
           ],
@@ -81,7 +98,7 @@ class _KeyBoardState extends State<KeyBoard> {
             children: <Widget>[
               Expanded(
                 child: GestureDetector(
-                  onTapDown: (_){
+                  onTapDown: (_) {
                     setState(() {
                       _pitch = "3";
                     });
@@ -106,7 +123,7 @@ class _KeyBoardState extends State<KeyBoard> {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTapDown: (_){
+                  onTapDown: (_) {
                     setState(() {
                       _pitch = "4";
                     });
@@ -131,7 +148,7 @@ class _KeyBoardState extends State<KeyBoard> {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTapDown: (_){
+                  onTapDown: (_) {
                     setState(() {
                       _pitch = "5";
                     });
@@ -161,7 +178,7 @@ class _KeyBoardState extends State<KeyBoard> {
     ));
   }
 
-  _whiteKey(var height, String note) {
+  _whiteKey(var height, String note, int index) {
     return Row(
       children: <Widget>[
         SizedBox(
@@ -172,7 +189,7 @@ class _KeyBoardState extends State<KeyBoard> {
             child: Container(
                 height: height,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: whiteColors[index],
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
@@ -191,9 +208,16 @@ class _KeyBoardState extends State<KeyBoard> {
                         )),
                   ),
                 )),
-
-            onTapDown: (_){
-              _playNote(_mapToNote(note + _pitch));
+            onTapDown: (_) {
+              _playNote(_mapToNote(note));
+              setState(() {
+                whiteColors[index] = Colors.white70;
+              });
+            },
+            onTapUp: (_) {
+              setState(() {
+                whiteColors[index] = Colors.white;
+              });
             },
           ),
         )
@@ -201,89 +225,51 @@ class _KeyBoardState extends State<KeyBoard> {
     );
   }
 
-  Tone _mapToNote(String note){
-    if(note=="C3")
-      return Tone.C3;
-    if(note=="D3")
-      return Tone.D3;
-    if(note=="E3")
-      return Tone.E3;
-    if(note=="F3")
-      return Tone.F3;
-    if(note=="G3")
-      return Tone.G3;
-    if(note=="A3")
-      return Tone.A3;
-    if(note=="B3")
-      return Tone.B3;
+  Tone _mapToNote(String note) {
+    if (note == "C3") return Tone.C3;
+    if (note == "D3") return Tone.D3;
+    if (note == "E3") return Tone.E3;
+    if (note == "F3") return Tone.F3;
+    if (note == "G3") return Tone.G3;
+    if (note == "A3") return Tone.A3;
+    if (note == "B3") return Tone.B3;
 
-    if(note=="C#3")
-      return Tone.Db3;
-    if(note=="D#3")
-      return Tone.Eb3;
-    if(note=="F#3")
-      return Tone.Gb3;
-    if(note=="G#3")
-      return Tone.Ab3;
-    if(note=="A#3")
-      return Tone.Bb3;
+    if (note == "C#3") return Tone.Db3;
+    if (note == "D#3") return Tone.Eb3;
+    if (note == "F#3") return Tone.Gb3;
+    if (note == "G#3") return Tone.Ab3;
+    if (note == "A#3") return Tone.Bb3;
 
+    if (note == "C4") return Tone.C4;
+    if (note == "D4") return Tone.D4;
+    if (note == "E4") return Tone.E4;
+    if (note == "F4") return Tone.F4;
+    if (note == "G4") return Tone.G4;
+    if (note == "A4") return Tone.A4;
+    if (note == "B4") return Tone.B4;
 
+    if (note == "C#4") return Tone.Db4;
+    if (note == "D#4") return Tone.Eb4;
+    if (note == "F#4") return Tone.Gb4;
+    if (note == "G#4") return Tone.Ab4;
+    if (note == "A#4") return Tone.Bb4;
 
-    if(note=="C4")
-      return Tone.C4;
-    if(note=="D4")
-      return Tone.D4;
-    if(note=="E4")
-      return Tone.E4;
-    if(note=="F4")
-      return Tone.F4;
-    if(note=="G4")
-      return Tone.G4;
-    if(note=="A4")
-      return Tone.A4;
-    if(note=="B4")
-      return Tone.B4;
+    if (note == "C5") return Tone.C5;
+    if (note == "D5") return Tone.D5;
+    if (note == "E5") return Tone.E5;
+    if (note == "F5") return Tone.F5;
+    if (note == "G5") return Tone.G5;
+    if (note == "A5") return Tone.A5;
+    if (note == "B5") return Tone.B5;
 
-    if(note=="C#4")
-      return Tone.Db4;
-    if(note=="D#4")
-      return Tone.Eb4;
-    if(note=="F#4")
-      return Tone.Gb4;
-    if(note=="G#4")
-      return Tone.Ab4;
-    if(note=="A#4")
-      return Tone.Bb4;
-
-    if(note=="C5")
-      return Tone.C5;
-    if(note=="D5")
-      return Tone.D5;
-    if(note=="E5")
-      return Tone.E5;
-    if(note=="F5")
-      return Tone.F5;
-    if(note=="G5")
-      return Tone.G5;
-    if(note=="A5")
-      return Tone.A5;
-    if(note=="B5")
-      return Tone.B5;
-
-    if(note=="C#5")
-      return Tone.Db5;
-    if(note=="D#5")
-      return Tone.Eb5;
-    if(note=="F#5")
-      return Tone.Gb5;
-    if(note=="G#5")
-      return Tone.Ab5;
-    if(note=="A#5")
-      return Tone.Bb5;
+    if (note == "C#5") return Tone.Db5;
+    if (note == "D#5") return Tone.Eb5;
+    if (note == "F#5") return Tone.Gb5;
+    if (note == "G#5") return Tone.Ab5;
+    if (note == "A#5") return Tone.Bb5;
   }
 
-  _blackKey(var height, String note) {
+  _blackKey(var height, String note, int index) {
     return Align(
       alignment: Alignment.centerRight,
       child: GestureDetector(
@@ -292,8 +278,20 @@ class _KeyBoardState extends State<KeyBoard> {
           width: (height) * 2,
           decoration: BoxDecoration(
               color: Colors.black,
+              boxShadow: [
+                BoxShadow(
+                  color: blackColors[index],
+                  blurRadius: 10.0,
+                  spreadRadius: 5.0,
+                  offset: Offset(
+                    1.0, // horizontal, move right 10
+                    8.0, // vertical, move down 10
+                  ),
+                )
+              ],
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10))),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -304,21 +302,29 @@ class _KeyBoardState extends State<KeyBoard> {
                     "$note",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold),
                   )),
             ),
           ),
         ),
-
-        onTapDown: (_){
-          _playNote(_mapToNote(note + _pitch));
+        onTapDown: (_) {
+          _playNote(_mapToNote(note));
+          setState(() {
+            blackColors[index] = Colors.transparent;
+          });
+        },
+        onTapUp: (_) {
+          setState(() {
+            blackColors[index] = Colors.black26;
+          });
         },
       ),
     );
   }
 
   _playNote(Tone note) {
+
     switch (note) {
       case Tone.C3:
         player.play('C3.wav');
@@ -472,5 +478,4 @@ class _KeyBoardState extends State<KeyBoard> {
         return;
     }
   }
-
 }
